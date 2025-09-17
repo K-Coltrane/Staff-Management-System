@@ -1,0 +1,16 @@
+// Dark Layout Variables
+
+// Include Dark
+// _variable-dark.scss file overrides _variable.scss file.
+
+// Menu
+// *******************************************************************************
+$menu-bg-dark: $paper-bg-dark !default;
+$menu-color-dark: $body-color-dark !default;
+$menu-color-rgb-dark: #{to-rgb($menu-color-dark)} !default;
+$menu-hover-bg-dark: $gray-60-dark !default;
+$menu-active-bg-dark: var(--#{$prefix}primary) !default;
+$menu-active-color-dark: $white-dark !default;
+$menu-active-toggle-bg-dark: rgba($base-dark, .08) !default;
+$menu-box-shadow-dark: $box-shadow-sm-dark !default;
+$menu-divider-color-dark: transparent !default;

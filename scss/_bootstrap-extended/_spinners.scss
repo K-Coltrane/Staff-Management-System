@@ -1,0 +1,53 @@
+/* Spinners */
+
+/* Large size */
+.spinner-border-lg,
+.spinner-grow-lg {
+  --#{$prefix}spinner-border-width: #{$spinner-border-width-lg};
+  --#{$prefix}spinner-height: #{$spinner-height-lg};
+  --#{$prefix}spinner-width: #{$spinner-width-lg};
+}
+
+/* Within button
+******************************************************************************* */
+
+.btn {
+  .spinner-border,
+  .spinner-grow {
+    --#{$prefix}spinner-height: 1em;
+    --#{$prefix}spinner-width: 1em;
+    inset-block-start: -.0625rem;
+  }
+
+  .spinner-border {
+    --#{$prefix}spinner-border-width: .15em;
+  }
+  &.btn-icon:has([class*="spinner"]) {
+    font-size: $btn-font-size;
+    &.btn-xs {
+      font-size: $btn-font-size-xs;
+    }
+    &.btn-sm {
+      font-size: $btn-font-size-sm;
+    }
+    &.btn-lg {
+      font-size: $btn-font-size-lg;
+    }
+    &.btn-xl {
+      font-size: $btn-font-size-xl;
+    }
+  }
+}
+
+@keyframes spinner-border-rtl {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* RTL */
+:dir(rtl) {
+  .spinner-border {
+    animation-name: spinner-border-rtl;
+  }
+}

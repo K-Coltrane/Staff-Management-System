@@ -1,0 +1,38 @@
+/* Offcanvas
+******************************************************************************* */
+
+.offcanvas {
+  box-shadow: var(--#{$prefix}offcanvas-box-shadow);
+  .offcanvas-header {
+    padding-block-end: $offcanvas-padding-y * .5;
+  }
+}
+
+/* RTL
+******************************************************************************* */
+:dir(rtl) {
+  .offcanvas-header .btn-close {
+    margin-block: ($offcanvas-padding-y * -.5) ($offcanvas-padding-x * -.5);
+    margin-inline: auto ($offcanvas-padding-y * -.5);
+  }
+
+  .offcanvas-start {
+    inset-inline: 0 auto;
+    transform: translateX(100%);
+  }
+
+  .offcanvas-end {
+    inset-inline: auto 0;
+    transform: translateX(-100%);
+  }
+}
+
+/* Dark theme
+******************************************************************************* */
+@if $enable-dark-mode {
+  @include color-mode(dark) {
+    .offcanvas-backdrop {
+      @include overlay-backdrop($zindex-offcanvas-backdrop, $offcanvas-backdrop-bg-dark, $offcanvas-backdrop-opacity-dark);
+    }
+  }
+}

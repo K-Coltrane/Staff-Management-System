@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="index.php"  method="post">
+        <label>username</label>
+        <input type="text" name="username"><br>
+        <label>password</label>
+        <input type="text" name="password"><br>
+        <input type="submit" name="login" value="login">
+    </form>
+    
+</body>
+</html>
+
+<?php
+if(isset($_POST["login"])) {
+
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    if(empty($username)) {
+        echo"username is missing";
+    }
+    elseif(empty($password)){
+        echo"password is missing"; 
+    }
+    else{
+        echo"Hello {$username}";
+    }
+}
+?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="index.php" method="post">
+        <input type="radio" name="credit_card" value="Visa">
+        Visa<br/>
+        <input type="radio" name="credit_card" value="Mastercard">
+        Mastercard</br>
+        <input type="radio" name="credit_card" value="AmericanExpress">
+        American Express</br>
+        <input type="submit" name="confirm" value="confirm">
+    </form>
+</body>
+</html>
+
+<?php
+
+    $credit_card = null;
+    
+    if(isset($_POST["Confirm"])){
+    
+         if(isset($_POST["Confirm"])){
+             if(isset($_POST["credit_card"]));  
+             }
+
+       
+
+     
+     if($credit_card == "Visa"){
+        echo "You selected Visa";
+     }
+
+     elseif($credit_card == "Mastercard"){
+        echo "You selected Mastercard";
+     }
+
+     elseif($credit_card == "AmericanExpress"){
+        echo "You selected AmericanExpress";
+     }
+
+
+    }
+     
+?>
+
+
+if(isset($_POST["submit"])) {
+
+if (isset($_POST["pizza"])){
+    echo" You like pizza </br>";
+}
+
+if (isset($_POST["hamburger"])){
+    echo" You like hamburgers</br>";
+}
+if (isset($_POST["hotdogs"])){
+    echo" You like hotdogs</br>";
+}
+if (isset($_POST["taco"])){
+    echo" You like tacos</br>";
+}
+
+if (empty($_POST["pizza"])){
+    echo" You dont like pizza </br>";
+}
+
+if (empty($_POST["hamburger"])){
+    echo" You dont like hamburgers</br>";
+}
+if (empty($_POST["hotdogs"])){
+    echo" You dont like hotdogs</br>";
+}
+if (empty ($_POST["taco"])){
+    echo" You dont like tacos</br>";
+}
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="index.php" method="post">
+        <input type="text" name="username">
+        Username<br/>
+        <input type="submit" name="login" value="login">
+        <br/>
+    </form>
+</body>
+</html>
+
+
+
+<?php
+ if (isset($_POST["login"])){
+    $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+    echo "Hello {$username}";
+ }
+?>
+
+
+<?php
+    include("header.html")
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    This is the Home page
+</body>
+</html>
+
+<?php
+    include("footer.html")
+?>
+
+
+<?php
+    session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form action="index.php" method="post">
+<input type="text" name="username">Username<br>
+<input type="text" name="password">Password<br>
+<input type="submit" value="Login">
+
+
+
+</form>
+</body>
+</html> 
+
+<?php
+  if(isset($_POST["login"])){
+  
+    $_SESSION["username"] = $_POST["username"];
+    $_SESSION["password"] = $_POST["password"];
+
+    if(!empty($_POST["username"]) && !empty($_POST["password"])){
+        $_SESSION["username"] = $_POST["username"];
+        $_SESSION["password"] = $_POST["password"];
+        
+        echo $_SESSION["username"], "<br>";
+        echo $_SESSION["password"], "<br>";
+    }
+    else{
+        echo "Please fill in the fields";
+    }
+  }
+    ?>
