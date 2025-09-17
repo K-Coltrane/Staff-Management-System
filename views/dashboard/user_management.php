@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 // Get all users
-$query = "SELECT id as user_id, username, email, role, created_at FROM users ORDER BY id DESC";
+$query = "SELECT id as user_id, username, email, role, status, created_at FROM users ORDER BY id DESC";
 $result = $db->query($query);
 
 // Set page title and CSS
@@ -272,7 +272,7 @@ include '../../includes/sidebar.php';
                                             </a>
                                             <a class="dropdown-item delete-user" href="javascript:void(0);" 
                                                data-bs-toggle="modal" data-bs-target="#delete_user" 
-                                               data-id="<?php echo $row['id']; ?>">
+                                               data-id="<?php echo $row['user_id']; ?>">
                                                 <i class="bx bx-trash me-1"></i> Delete
                                             </a>
                                         </div>
