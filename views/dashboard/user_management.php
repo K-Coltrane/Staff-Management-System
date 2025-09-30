@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 // Get all users
-$query = "SELECT id as user_id, username, email, role, created_at FROM users ORDER BY id DESC";
+$query = "SELECT id as user_id, username, email, role, status, created_at FROM users ORDER BY id DESC";
 $result = $db->query($query);
 
 // Set page title and CSS
@@ -181,7 +181,7 @@ include '../../includes/sidebar.php';
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">User Management</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user">
+                <button type="button" id="add-user-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user">
                     <i class="bx bx-plus me-1"></i> Add User
                 </button>
             </div>
@@ -272,7 +272,7 @@ include '../../includes/sidebar.php';
                                             </a>
                                             <a class="dropdown-item delete-user" href="javascript:void(0);" 
                                                data-bs-toggle="modal" data-bs-target="#delete_user" 
-                                               data-id="<?php echo $row['id']; ?>">
+                                               data-id="<?php echo $row['user_id']; ?>">
                                                 <i class="bx bx-trash me-1"></i> Delete
                                             </a>
                                         </div>
@@ -432,11 +432,11 @@ include '../../includes/sidebar.php';
 <!-- / Delete User Modal -->
 
 <!-- Core JS -->
-<script src="<?php echo BASE_URL; ?>assets/vendor/libs/jquery/jquery.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/vendor/libs/popper/popper.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/vendor/js/bootstrap.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="<?php echo BASE_URL; ?>assets/vendor/js/menu.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/vendor/vendor/libs/jquery/jquery.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/vendor/vendor/libs/popper/popper.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/vendor/vendor/js/bootstrap.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/vendor/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/vendor/vendor/js/menu.js"></script>
 
 <!-- Main JS -->
 <script src="<?php echo BASE_URL; ?>assets/js/main.js"></script>
@@ -444,6 +444,50 @@ include '../../includes/sidebar.php';
 <!-- Page JS -->
 <script>
 $(document).ready(function() {
+    // Ensure Add User button opens modal even if data attributes fail
+    $('#add-user-btn').on('click', function(e) {
+        var modalEl = document.getElementById('add_user');
+        if (modalEl && window.bootstrap && window.bootstrap.Modal) {
+            var modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.show();
+        } else if (modalEl) {
+            // Fallback if Bootstrap JS isn't attached
+            showModalFallback(modalEl);
+        }
+    });
+
+    function showModalFallback(modalEl) {
+        if (!modalEl) return;
+        modalEl.classList.add('show');
+        modalEl.style.display = 'block';
+        modalEl.removeAttribute('aria-hidden');
+        modalEl.setAttribute('aria-modal', 'true');
+        document.body.classList.add('modal-open');
+        var backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop fade show';
+        backdrop.setAttribute('data-fallback', 'true');
+        document.body.appendChild(backdrop);
+    }
+
+    function hideModalFallback(modalEl) {
+        if (!modalEl) return;
+        modalEl.classList.remove('show');
+        modalEl.style.display = 'none';
+        modalEl.setAttribute('aria-hidden', 'true');
+        modalEl.removeAttribute('aria-modal');
+        document.body.classList.remove('modal-open');
+        var backdrop = document.querySelector('.modal-backdrop[data-fallback="true"]');
+        if (backdrop) backdrop.remove();
+    }
+
+    // Fallback close handlers if Bootstrap isn't present
+    $(document).on('click', '[data-bs-dismiss="modal"]', function() {
+        if (!window.bootstrap) {
+            var modalEl = this.closest('.modal');
+            hideModalFallback(modalEl);
+        }
+    });
+
     // Edit user
     $('.edit-user').on('click', function() {
         var userId = $(this).data('id');
